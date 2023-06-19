@@ -1258,3 +1258,30 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+.display-5{
+    font-size: 37px;
+    font-weight: bold;
+}
+.card-body-icon{
+    position: absolute;
+    z-index: 0;
+    top: 8px;
+    right: 10px;
+    opacity: 0.4;
+    font-size: 110px;
+}
+.display-8{
+    font-weight: bold;
+    font-size: 30px;
+}
+.card-body-icon-2{
+    position: absolute;
+    z-index: 0;
+    top: 2px;
+    right: 10px;
+    opacity: 0.4;
+    font-size: 120px;
+}
+.card-title{
+    font-size: 25px;
+}

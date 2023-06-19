@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Santri;
-use App\Http\Requests\StoresantriRequest;
-use App\Http\Requests\UpdatesantriRequest;
+use Illuminate\Http\Request;
 
 class SantriController extends Controller
 {
@@ -13,9 +12,9 @@ class SantriController extends Controller
      */
     public function index()
     {
-        return view('content.data')->with([
-            'santri'=>Santri::all()
-        ]);
+        $santris = Santri::orderBy('created_at', 'DESC')->get();
+
+        return view('dataSantri.data', compact('santris'));
     }
 
     /**
@@ -23,46 +22,72 @@ class SantriController extends Controller
      */
     public function create()
     {
-        //
+        return view('dataSantri.formadd');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoresantriRequest $request)
+    public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nis' => 'unique:santris',
+            ]);
+        $santris = Santri::create($request->all());
+        if($request->hasFile('foto')){
+            $request->file('foto')->move('images/', $request->file('foto')->getClientOriginalName());
+            $santris->foto=$request->file('foto')->getClientOriginalName();
+            $santris->save();
+
+        }
+        return redirect()->route('santri.index')->with('success',  'Data berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(santri $santri)
+    public function show(string $id)
     {
-        //
+        $santris = Santri::findOrFail($id);
+
+        return view('dataSantri.aksi.show', compact('santris'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(santri $santri)
+    public function edit(string $id)
     {
-        //
+        $santris=Santri::findOrFail($id);
+
+        return view('dataSantri.aksi.edit', compact('santris'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatesantriRequest $request, santri $santri)
+    public function update(Request $request, string $id)
     {
-        //
+        $santris=Santri::findOrFail($id);
+
+        $santris->update($request->all());
+        if($request->hasFile('foto')){
+            $request->file('foto')->move('images/', $request->file('foto')->getClientOriginalName());
+            $santris->foto=$request->file('foto')->getClientOriginalName();
+            $santris->save();
+        }
+        return redirect()->route('santri.index')->with('success',  'Data berhasil di Update');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(santri $santri)
+    public function destroy(string $id)
     {
-        //
+        $santris = Santri::findOrFail($id);
+
+        $santris->delete();
+
+        return redirect()->route('santri.index')->with('success','Data berhasil di hapus');
     }
 }

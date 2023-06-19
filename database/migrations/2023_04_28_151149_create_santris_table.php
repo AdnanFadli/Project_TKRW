@@ -12,15 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('santris', function (Blueprint $table) {
-            // $table->id();
-            $table->integer('id',11);
-            $table->integer('nis',11);
-            $table->string('nama',50);
-            $table->enum('jenkel',['Laki-Laki','Perempuan']);
-            $table->string('tpt_lahir',50);
-            $table->string('tgl_lahir',50);
-            $table->string('nm_ortu',50);
-            $table->primary('id');
+            $table->id();
+            $table->string('foto');
+            $table->string('nis');
+            $table->string('nama');
+            $table->enum('jenkel', ["Laki-Laki","Perempuan"]);
+            $table->string('tpt_lahir');
+            $table->string('tgl_lahir');
+            $table->year('tahun_masuk');
+            $table->string('nm_ortu');
+            $table->enum('status',["Belum Lunas","Lunas"]);
+            $table->string('jumlah_tagihan');
             $table->timestamps();
         });
     }

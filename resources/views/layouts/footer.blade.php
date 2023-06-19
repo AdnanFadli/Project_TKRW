@@ -9,6 +9,8 @@
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+
+
     </div>
 </footer><!-- End Footer -->
 
@@ -16,17 +18,40 @@
         class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
-<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/chart.js/chart.umd.js"></script>
-<script src="assets/vendor/echarts/echarts.min.js"></script>
-<script src="assets/vendor/quill/quill.min.js"></script>
-<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-<script src="assets/vendor/tinymce/tinymce.min.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
+<script src="{{ asset('NiceAdmin') }}/assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="{{ asset('NiceAdmin') }}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('NiceAdmin') }}/assets/vendor/chart.js/chart.umd.js"></script>
+<script src="{{ asset('NiceAdmin') }}/assets/vendor/echarts/echarts.min.js"></script>
+<script src="{{ asset('NiceAdmin') }}/assets/vendor/quill/quill.min.js"></script>
+<script src="{{ asset('NiceAdmin') }}/assets/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="{{ asset('NiceAdmin') }}/assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="{{ asset('NiceAdmin') }}/assets/vendor/php-email-form/validate.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+
+
+
+
+@if ($message2 = Session::get('success'))
+    <script>
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: '{{ $message2 }}',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+@endif
 
 <!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
+<script src="{{ asset('NiceAdmin') }}/assets/js/main.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
+</script>
 
 </body>
 
